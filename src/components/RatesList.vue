@@ -38,7 +38,7 @@ export default {
       localStorage.setItem('to', JSON.stringify(this.to))
     },
   },
-  beforeUnmount() {
+  unmounted() {
     localStorage.removeItem('to')
   },
   methods: {

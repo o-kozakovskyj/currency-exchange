@@ -1,6 +1,5 @@
 <script lang="ts">
 declare interface Rates {
-  base_currency: string
   exchange_rates: {
     [key: string]: string
   }
@@ -26,8 +25,9 @@ export default {
       to: 'BTC',
       rateToDollar: 1,
       rates: {
-        base_currency: '',
-        exchange_rates: {}
+        exchange_rates: {
+          BTC: '0.000052',
+        }
       } as Rates
     }
   },
