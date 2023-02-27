@@ -13,7 +13,8 @@ export default {
   data: () => {
     return {
       from: 'USD',
-      to: ['USD', 'EUR', 'BTC', 'ETH', 'UAH'],
+      fromOptions: ['USD', 'EUR', 'UAH'],
+      to: ['USD', 'EUR', 'UAH', 'BTC', 'ETH',],
       rates: {} as Rates,
       delay: false,
       isModalOpen: false
@@ -65,7 +66,7 @@ export default {
         <span>1</span>
         <form>
           <select name="from" class="currency-list__select" v-model="from">
-            <option v-for="currency in to" :key="currency" :value="currency">{{ currency }}</option>
+            <option v-for="currency in fromOptions" :key="currency" :value="currency">{{ currency }}</option>
           </select>
         </form>
         <span>=</span>

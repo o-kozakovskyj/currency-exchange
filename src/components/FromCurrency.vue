@@ -1,23 +1,3 @@
-<template>
-  <div class="input-box">
-    <form>
-      <label for="from">From</label>
-      <select
-        name="from"
-        :value="fromValue"
-        @input="$emit('update:fromValue', ($event.target as HTMLInputElement).value)"
-      >
-        <option value="USD" selected>USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        <option value="BTC">BTC</option>
-        <option value="ETH">ETH</option>
-        <option value="BNB">BNB</option>
-        <option value="XRP">XRP</option>
-      </select>
-    </form>
-  </div>
-</template>
 <script lang="ts">
 export default {
   props: {
@@ -30,6 +10,24 @@ export default {
   name: 'FromCurrency'
 }
 </script>
+<template>
+  <div class="input-box">
+    <form>
+      <label for="from">From</label>
+      <select name="from" :value="fromValue"
+        @input="$emit('update:fromValue', ($event.target as HTMLInputElement).value)">
+        <option value="USD" selected>USD</option>
+        <option value="EUR">EUR</option>
+        <option value="UAH">UAH</option>
+        <option value="GBP">GBP</option>
+        <option value="BTC">BTC</option>
+        <option value="ETH">ETH</option>
+        <option value="BNB">BNB</option>
+        <option value="XRP">XRP</option>
+      </select>
+    </form>
+  </div>
+</template>
 <style>
 input {
   display: flex;
@@ -53,6 +51,7 @@ label {
   label {
     font-size: 18px;
   }
+
   input,
   select {
     margin-right: 1rem;

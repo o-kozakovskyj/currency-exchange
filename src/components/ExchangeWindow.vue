@@ -1,8 +1,8 @@
 <script lang="ts">
-declare interface Rates {  
-    [key: string]: number
+declare interface Rates {
+  [key: string]: number
 }
-import { getRate} from '../api/api'
+import { getRate } from '@/api/api'
 import FromCurrency from './FromCurrency.vue'
 import ToCurrency from './ToCurrency.vue'
 import ResultAmount from './ResultAmount.vue'
@@ -26,23 +26,24 @@ export default {
   },
   computed: {
     maxToChange() {
-      if (this.from === 'USD') {
+      const { from, rates } = this
+      if (from === 'USD') {
         return 10000
       }
-      return 10000 * this.rates.USD
+      return 10000 * rates.USD
     }
   },
   mounted() {
     getRate(this.from).then((data) => {
       this.rates = data
     })
-    
   },
   watch: {
     amount() {
-      if (this.amount > this.maxToChange) {
-        this.amount = this.maxToChange
-        alert(`You can not change more than ${this.maxToChange} ${this.from}`)
+      const { from, amount, maxToChange } = this
+      if (amount > maxToChange) {
+       this.amount = maxToChange
+        alert(`You can not change more than ${maxToChange} ${from}`)
       }
     },
     from() {
@@ -57,10 +58,8 @@ export default {
       })
       this.amount = 100
     }
-    
   },
   methods: {
-
     changeToCurrency() {
       const { from, to, amount, rates } = this
       if (from === to) {

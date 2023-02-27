@@ -2,6 +2,9 @@ export default {
   data() {
     return {
       currencyList: [
+        '',
+        'AED',
+        'AFN',
         'ARS',
         'AUD',
         'BCH',
@@ -43,6 +46,7 @@ export default {
         'TWD',
         'USD',
         'XRP',
+        'UAH',
         'ZAR'
       ]
     }
