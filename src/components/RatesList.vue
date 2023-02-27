@@ -1,5 +1,8 @@
 <script lang="ts">
-import { getRates } from '@/api/api'
+declare interface Rates {
+  [key: string]: number
+}
+import { getRate } from '@/api/api'
 import ModalAddCurrency from '@/components/ModalAddCurrency.vue'
 
 export default {
@@ -10,10 +13,8 @@ export default {
   data: () => {
     return {
       from: 'USD',
-      to: ['USD', 'EUR', 'BTC', 'ETH'],
-      rates: {
-        exchange_rates: {}
-      },
+      to: ['USD', 'EUR', 'BTC', 'ETH', 'UAH'],
+      rates: {} as Rates,
       delay: false,
       isModalOpen: false
     }
@@ -21,18 +22,12 @@ export default {
   mounted() {
     if (localStorage.getItem('to') !== null) {
       this.to = JSON.parse(localStorage.getItem('to') || '{}')
-    } else {
-      this.to = ['USD', 'EUR', 'BTC', 'ETH']
     }
-    getRates(this.from, this.to).then((data) => {
-      this.rates = data
-    })
+    this.getChoosenList()
   },
   watch: {
     from() {
-      getRates(this.from, this.to).then((data) => {
-        this.rates = data
-      })
+      this.getChoosenList()
     },
     to() {
       localStorage.setItem('to', JSON.stringify(this.to))
@@ -42,11 +37,14 @@ export default {
     localStorage.removeItem('to')
   },
   methods: {
+    getChoosenList() {
+      return getRate(this.from).then((data) => {
+        this.rates = this.to.reduce((acc: any, record: any) => (record in data && (acc[record] = data[record]), acc), {})
+      })
+    },
     update() {
       this.delay = true
-      getRates(this.from, this.to).then((data) => {
-        this.rates = data
-      })
+      this.getChoosenList()
       setTimeout(() => {
         this.delay = false
       }, 5000)
@@ -54,9 +52,7 @@ export default {
     add(currency: string) {
       this.to.push(currency)
       this.isModalOpen = false
-      getRates(this.from, this.to).then((data) => {
-        this.rates = data
-      })
+      this.getChoosenList()
       localStorage.setItem('to', JSON.stringify(this.to))
     }
   },
@@ -75,7 +71,7 @@ export default {
         <span>=</span>
       </div>
       <div class="currency-list__rates">
-        <div v-for="(rate, currency) in rates.exchange_rates" :key="currency">
+        <div v-for="(rate, currency) in rates" :key="currency">
           <span>{{ rate }}</span>
           <span>{{ currency }}</span>
         </div>

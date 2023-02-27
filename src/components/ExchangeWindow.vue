@@ -1,10 +1,8 @@
 <script lang="ts">
-declare interface Rates {
-  exchange_rates: {
-    [key: string]: string
-  }
+declare interface Rates {  
+    [key: string]: number
 }
-import { getRate,getRateToDollar } from '../api/api'
+import { getRate} from '../api/api'
 import FromCurrency from './FromCurrency.vue'
 import ToCurrency from './ToCurrency.vue'
 import ResultAmount from './ResultAmount.vue'
@@ -23,54 +21,52 @@ export default {
       amount: 100,
       from: 'USD',
       to: 'BTC',
-      rateToDollar: 1,
-      rates: {
-        exchange_rates: {
-          BTC: '0.000052',
-        }
-      } as Rates
+      rates: {} as Rates,
+    }
+  },
+  computed: {
+    maxToChange() {
+      if (this.from === 'USD') {
+        return 10000
+      }
+      return 10000 * this.rates.USD
     }
   },
   mounted() {
-    getRate(this.from, this.to).then((data) => {
+    getRate(this.from).then((data) => {
       this.rates = data
     })
-    if (this.from !== 'USD') {
-      getRateToDollar(this.from).then((data) => {
-        this.rateToDollar = data.exchange_rates[this.from]
-      })
-    }
+    
   },
   watch: {
     amount() {
-      const maxToChange = 10000 * this.rateToDollar
-      if (this.amount > maxToChange) {
-        this.amount = maxToChange
+      if (this.amount > this.maxToChange) {
+        this.amount = this.maxToChange
+        alert(`You can not change more than ${this.maxToChange} ${this.from}`)
       }
     },
     from() {
-      getRate(this.from, this.to).then((data) => {
+      getRate(this.from).then((data) => {
         this.rates = data
       })
-      if (this.from !== 'USD') {
-        getRateToDollar(this.from).then((data) => {
-          this.rateToDollar = data.exchange_rates[this.from]
-        })
-      }
+      this.amount = 100
     },
     to() {
-      getRate(this.from, this.to).then((data) => {
+      getRate(this.from).then((data) => {
         this.rates = data
       })
+      this.amount = 100
     }
+    
   },
   methods: {
+
     changeToCurrency() {
-      let { rates, amount, to, from } = this
+      const { from, to, amount, rates } = this
       if (from === to) {
         return amount
       }
-      return Number(rates.exchange_rates[to]) * amount
+      return rates[to] * amount
     }
   }
 }
