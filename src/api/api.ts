@@ -4,7 +4,7 @@ const URL = 'https://exchange-rates.abstractapi.com/v1/live/?api_key='
 
 export const getRate = (from: string, to: string) => {
   return fetch(
-    `${URL}${KEY}&base=${from}&target=${to}`
+    `${URL}${KEY1}&base=${from}&target=${to}`
   ).then((response) => response.json())
 }
 export const getRates = (from: string, to: String[]) => {
@@ -16,6 +16,6 @@ export const getRates = (from: string, to: String[]) => {
 }
 export const getRateToDollar = (to: string) => {
   return fetch(
-    `${URL}${KEY1}&base=USD&target=${to}`
+    `${URL}${KEY}&base=USD&target=${to}`
   ).then((response) => response.json())
 }
