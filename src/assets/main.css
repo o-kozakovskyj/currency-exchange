@@ -1,0 +1,29 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 768px) {
+}
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0085fe;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.button:hover {
+  background-color: #0070e0;
+}
+.button:disabled {
+  background-color: #e0e0e0;
+  color: #fff;
+  cursor: not-allowed;
+}
