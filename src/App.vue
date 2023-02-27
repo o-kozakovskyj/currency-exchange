@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="image-box">
-      <img alt="Tech background" src="tech.jpg" />
+      <img alt="Tech background" src="/tech.jpg" />
     </div>
   </header>
   <main>
