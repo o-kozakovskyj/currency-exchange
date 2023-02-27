@@ -10,7 +10,7 @@ export default {
   data: () => {
     return {
       from: 'USD',
-      to:  ['USD', 'EUR', 'BTC', 'ETH'],
+      to: ['USD', 'EUR', 'BTC', 'ETH'],
       rates: {
         exchange_rates: {}
       },
@@ -19,6 +19,11 @@ export default {
     }
   },
   mounted() {
+    if (localStorage.getItem('to') !== null) {
+      this.to = JSON.parse(localStorage.getItem('to') || '{}')
+    } else {
+      this.to = ['USD', 'EUR', 'BTC', 'ETH']
+    }
     getRates(this.from, this.to).then((data) => {
       this.rates = data
     })
@@ -28,7 +33,13 @@ export default {
       getRates(this.from, this.to).then((data) => {
         this.rates = data
       })
-    }
+    },
+    to() {
+      localStorage.setItem('to', JSON.stringify(this.to))
+    },
+  },
+  beforeUnmount() {
+    localStorage.removeItem('to')
   },
   methods: {
     update() {
@@ -46,8 +57,9 @@ export default {
       getRates(this.from, this.to).then((data) => {
         this.rates = data
       })
+      localStorage.setItem('to', JSON.stringify(this.to))
     }
-  }
+  },
 }
 </script>
 <template>
