@@ -61,7 +61,7 @@ export default {
 </script>
 <template>
   <div class="container">
-    <div class="currency-list">
+    <div class="currency-list" >
       <div class="currency-list__from">
         <span>1</span>
         <form>
@@ -71,7 +71,7 @@ export default {
         </form>
         <span>=</span>
       </div>
-      <div class="currency-list__rates">
+      <div class="currency-list__rates" v-show="!isModalOpen">
         <div v-for="(rate, currency) in rates" :key="currency">
           <span>{{ rate }}</span>
           <span>{{ currency }}</span>

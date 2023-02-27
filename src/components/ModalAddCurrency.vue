@@ -35,12 +35,16 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+  cursor: pointer;
   padding: 0;
   margin: 4px;
   border: none;
   background-color: transparent;
   font-weight: 700;
-  color: #000;
+  color: #e8e8e8;
+}
+.btn-close:hover {
+  color: #000
 }
 
 .btn-add {
