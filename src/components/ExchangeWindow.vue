@@ -101,7 +101,7 @@ export default {
   transform: translate(-50%, -50%);
   left: 50%;
   width: 50%;
-  padding: 25px 10px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
