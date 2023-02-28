@@ -2,7 +2,7 @@
 declare interface Rates {
   [key: string]: number
 }
-import { getRate } from '@/api/api'
+import { getRate } from '@/gateways/gateway'
 import FromCurrency from './FromCurrency.vue'
 import ToCurrency from './ToCurrency.vue'
 import ResultAmount from './ResultAmount.vue'
@@ -25,13 +25,16 @@ export default {
     }
   },
   computed: {
-    maxToChange() {
+    maxToChange():number {
       const { from, rates } = this
       if (from === 'USD') {
         return 10000
       }
-      return 10000 * rates.USD
-    }
+      return Math.round((10000 / rates.USD)*100)/100
+    },
+    currentRate(): number {
+      return this.rates[this.to]
+    },
   },
   mounted() {
     getRate(this.from).then((data) => {
@@ -50,22 +53,21 @@ export default {
       getRate(this.from).then((data) => {
         this.rates = data
       })
+      this.currentRate
       this.amount = 100
     },
     to() {
-      getRate(this.from).then((data) => {
-        this.rates = data
-      })
       this.amount = 100
+      this.currentRate 
     }
   },
   methods: {
     changeToCurrency() {
-      const { from, to, amount, rates } = this
+      const { from, to, amount} = this
       if (from === to) {
         return amount
       }
-      return rates[to] * amount
+      return amount * this.currentRate  
     }
   }
 }

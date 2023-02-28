@@ -24,6 +24,14 @@ export default {
   width: 100%;
   height: 50vh;
 }
+.image-box::before {
+  display: block;
+  top: 10px;
+  left: 10px;
+  content: 'CURRENCY EXCHANGE';
+  color: #fff;
+  position: absolute;
+}
 img {
   width: 100%;
   height: 100%;

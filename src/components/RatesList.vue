@@ -2,7 +2,7 @@
 declare interface Rates {
   [key: string]: number
 }
-import { getRate } from '@/api/api'
+import { getRate } from '@/gateways/gateway'
 import ModalAddCurrency from '@/components/ModalAddCurrency.vue'
 
 export default {
@@ -24,11 +24,11 @@ export default {
     if (localStorage.getItem('to') !== null) {
       this.to = JSON.parse(localStorage.getItem('to') || '{}')
     }
-    this.getChoosenList()
+    this.getChoosenList(this.from)
   },
   watch: {
     from() {
-      this.getChoosenList()
+      this.getChoosenList(this.from)
     },
     to() {
       localStorage.setItem('to', JSON.stringify(this.to))
@@ -38,14 +38,17 @@ export default {
     localStorage.removeItem('to')
   },
   methods: {
-    getChoosenList() {
-      return getRate(this.from).then((data) => {
-        this.rates = this.to.reduce((acc: any, record: any) => (record in data && (acc[record] = data[record]), acc), {})
+    getChoosenList(from: string ) {
+      return getRate(from).then((data) => {
+        this.rates = Object.entries(data).filter(([key]) => this.to.includes(key) && key !== from).reduce((acc, [key, value]) => {
+          acc[key] = value
+          return acc
+        }, {} as Rates)
       })
     },
     update() {
       this.delay = true
-      this.getChoosenList()
+      this.getChoosenList(this.from)
       setTimeout(() => {
         this.delay = false
       }, 5000)
@@ -53,7 +56,7 @@ export default {
     add(currency: string) {
       this.to.push(currency)
       this.isModalOpen = false
-      this.getChoosenList()
+      this.getChoosenList(this.from)
       localStorage.setItem('to', JSON.stringify(this.to))
     }
   },

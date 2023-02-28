@@ -16,6 +16,7 @@ export default {
       <label for="from">To</label>
       <select name="to" :value="toValue" @click="$emit('update:toValue', ($event.target as HTMLInputElement).value)">
         <option value="USD">USD</option>
+        <option value="UAH">UAH</option>
         <option value="EUR">EUR</option>
         <option value="GBP">GBP</option>
         <option value="BTC" selected>BTC</option>
