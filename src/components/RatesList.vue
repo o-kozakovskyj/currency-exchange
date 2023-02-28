@@ -1,3 +1,30 @@
+
+<template>
+  <div class="container">
+    <div class="currency-list" >
+      <div class="currency-list__from">
+        <span>1</span>
+        <form>
+          <select name="from" class="currency-list__select" v-model="from">
+            <option v-for="currency in fromOptions" :key="currency" :value="currency">{{ currency }}</option>
+          </select>
+        </form>
+        <span>=</span>
+      </div>
+      <div class="currency-list__rates" v-show="!isModalOpen">
+        <div v-for="(rate, currency) in rates" :key="currency">
+          <span>{{ rate }}</span>
+          <span>{{ currency }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="currency-list__btns">
+      <button class="button" @click="update" :disabled="delay">Refresh rates</button>
+      <button class="button" @click="($event) => (isModalOpen = true)">Add currency</button>
+    </div>
+    <ModalAddCurrency v-if="isModalOpen" @close="isModalOpen = false" @add="add($event)" />
+  </div>
+</template>
 <script lang="ts">
 declare interface Rates {
   [key: string]: number
@@ -62,32 +89,6 @@ export default {
   },
 }
 </script>
-<template>
-  <div class="container">
-    <div class="currency-list" >
-      <div class="currency-list__from">
-        <span>1</span>
-        <form>
-          <select name="from" class="currency-list__select" v-model="from">
-            <option v-for="currency in fromOptions" :key="currency" :value="currency">{{ currency }}</option>
-          </select>
-        </form>
-        <span>=</span>
-      </div>
-      <div class="currency-list__rates" v-show="!isModalOpen">
-        <div v-for="(rate, currency) in rates" :key="currency">
-          <span>{{ rate }}</span>
-          <span>{{ currency }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="currency-list__btns">
-      <button class="button" @click="update" :disabled="delay">Refresh rates</button>
-      <button class="button" @click="($event) => (isModalOpen = true)">Add currency</button>
-    </div>
-    <ModalAddCurrency v-if="isModalOpen" @close="isModalOpen = false" @add="add($event)" />
-  </div>
-</template>
 <style>
 .container {
   display: flex;

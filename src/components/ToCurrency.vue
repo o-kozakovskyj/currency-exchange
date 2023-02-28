@@ -1,15 +1,4 @@
-<script lang="ts">
-export default {
-  name: 'ToCurrency',
-  props: {
-    toValue: {
-      type: String,
-      default: 'EUR'
-    }
-  },
-  emits: ['update:toValue']
-}
-</script>
+
 <template>
   <div class="input-box">
     <form>
@@ -27,7 +16,18 @@ export default {
     </form>
   </div>
 </template>
-
+<script lang="ts">
+export default {
+  name: 'ToCurrency',
+  props: {
+    toValue: {
+      type: String,
+      default: 'EUR'
+    }
+  },
+  emits: ['update:toValue']
+}
+</script>
 <style>
 select {
   display: flex;

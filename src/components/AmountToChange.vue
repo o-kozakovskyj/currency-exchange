@@ -1,3 +1,11 @@
+<template>
+  <div class="input-box">
+    <form>
+      <label for="amount">Amount</label>
+      <input type="number" name="amount" :value="amountValue" @input="updateAmountValue" min="1" />
+    </form>
+  </div>
+</template>
 <script lang="ts">
 export default {
   name: 'AmountToChange',
@@ -19,11 +27,3 @@ export default {
   emits: ['update:amountValue']
 }
 </script>
-<template>
-  <div class="input-box">
-    <form>
-      <label for="amount">Amount</label>
-      <input type="number" name="amount" :value="amountValue" @input="updateAmountValue" min="1" />
-    </form>
-  </div>
-</template>

@@ -1,10 +1,3 @@
-<script lang="ts">
-import mixin from '../mixins/currencyList'
-export default {
-  emits: ['close', 'add'],
-  mixins: [mixin]
-}
-</script>
 <template>
   <div class="paper">
     <button @click="$emit('close')" class="btn-close">X</button>
@@ -18,7 +11,13 @@ export default {
     </form>
   </div>
 </template>
-
+<script lang="ts">
+import mixin from '../mixins/currencyList'
+export default {
+  emits: ['close', 'add'],
+  mixins: [mixin]
+}
+</script>
 <style scoped>
 .modal__currency {
   width: 100%;

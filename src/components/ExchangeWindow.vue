@@ -1,3 +1,22 @@
+
+<template>
+  <div>
+    <div class="paper">
+      <div class="paper__inputs">
+        <div class="input-box">
+          <form>
+            <label for="amoun">Amount</label>
+            <input type="number" name="amoun" v-model.number="amount" :min="1" />
+          </form>
+        </div>
+        <FromCurrency v-model:fromValue="from" />
+        <ToCurrency v-model:toValue="to" />
+      </div>
+      <ResultAmount :resultAmount="changeToCurrency()" :amount="amount" :from="from" :to="to" />
+    </div>
+    <RatesList />
+  </div>
+</template>
 <script lang="ts">
 declare interface Rates {
   [key: string]: number
@@ -72,24 +91,6 @@ export default {
   }
 }
 </script>
-<template>
-  <div>
-    <div class="paper">
-      <div class="paper__inputs">
-        <div class="input-box">
-          <form>
-            <label for="amoun">Amount</label>
-            <input type="number" name="amoun" v-model.number="amount" :min="1" />
-          </form>
-        </div>
-        <FromCurrency v-model:fromValue="from" />
-        <ToCurrency v-model:toValue="to" />
-      </div>
-      <ResultAmount :resultAmount="changeToCurrency()" :amount="amount" :from="from" :to="to" />
-    </div>
-    <RatesList />
-  </div>
-</template>
 <style>
 .paper {
   position: absolute;

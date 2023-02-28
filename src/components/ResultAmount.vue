@@ -1,3 +1,11 @@
+
+<template>
+  <div class="result-amount">
+    <span class="result-amount__line">
+      {{ `${amount} ${from} = ${resultAmount?.toFixed(4)} ${to}` }}
+    </span>
+  </div>
+</template>
 <script lang="ts">
 export default {
   props: {
@@ -16,14 +24,6 @@ export default {
   }
 }
 </script>
-<template>
-  <div class="result-amount">
-    <span class="result-amount__line">
-      {{ `${amount} ${from} = ${resultAmount?.toFixed(4)} ${to}` }}
-    </span>
-  </div>
-</template>
-
 <style>
 .result-amount {
   margin-top: 1rem;

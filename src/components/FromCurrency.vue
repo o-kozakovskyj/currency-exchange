@@ -1,15 +1,4 @@
-<script lang="ts">
-export default {
-  props: {
-    fromValue: {
-      type: String,
-      default: 'USD'
-    }
-  },
-  emits: ['update:fromValue'],
-  name: 'FromCurrency'
-}
-</script>
+
 <template>
   <div class="input-box">
     <form>
@@ -28,6 +17,18 @@ export default {
     </form>
   </div>
 </template>
+<script lang="ts">
+export default {
+  props: {
+    fromValue: {
+      type: String,
+      default: 'USD'
+    }
+  },
+  emits: ['update:fromValue'],
+  name: 'FromCurrency'
+}
+</script>
 <style>
 input {
   display: flex;
