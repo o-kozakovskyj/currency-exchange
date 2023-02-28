@@ -1,9 +1,10 @@
 # currency-exchange
 Currency-exchange[DEMO](https://exchange-window.netlify.app/)
 ## Using this App You Can Calculate The Exchange Rate Of main world currencies
-!!!Important Note: I used free API for this app, so the exchange rate is not real time, it's updated every 24 hours!!!
-!!!Important Note: Free API has a limit of 500 requests per month & restrics requests per second, so if you get an error, it means that you have exceeded the limit. That why can be some bags during validation max amount to change & loading rates!!!
-
+!!! Important
+    This App is not for commercial use. It is only for educational purposes.
+    This App use test API which response is not real(especially for rate UAH/USD).
+    This App havent response for XPT BNB ETH currencies.
 ### Project Setup
 
 ```sh
